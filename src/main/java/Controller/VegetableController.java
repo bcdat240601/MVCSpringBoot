@@ -24,14 +24,14 @@ public class VegetableController {
     @Autowired
     private VegetableRepository vegtableRepository;
     
-    @GetMapping("/index")
-    public @ResponseBody Iterable<Vegetable> index(Model m)
-    {
-        return  vegtableRepository.findAll();
-        //m.addAttribute("data", list);
-        //return "home";
-        
-    }
+//    @GetMapping("/index")
+//    public @ResponseBody Iterable<Vegetable> index(Model m)
+//    {
+//        return  vegtableRepository.findAll();
+//        //m.addAttribute("data", list);
+//        //return "home";
+//        
+//    }
     @GetMapping("/all")
     public String getAll(Model m)
     {
