@@ -37,7 +37,7 @@ public class VegetableController {
     {
         Iterable<Vegetable> list = vegtableRepository.findAll();
         m.addAttribute("data", list);
-        return "home";
+        return "index";
         
     }
     
