@@ -4,7 +4,6 @@
  */
 package Entities;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,29 +14,18 @@ import lombok.Data;
 
 /**
  *
- * @author ad
+ * @author ADMIN
  */
 @Data
-@Entity(name = "vegetable")
-@Table(name = "vegetable")
-public class Vegetable {
+@Entity(name = "category")
+@Table(name = "category")
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer VegetableID;
-    @Column
     private Integer CatagoryID;
-
     @Column
-    private String vegetable_name;
+    private String Name;
     @Column
-    private String Unit;
-    @Column
-    private Integer Amount;
-    @Column
-    private String Image;
-    @Column
-    private Float Price;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "CatagoryID", nullable = true, insertable = false, updatable = false, foreignKey = @ForeignKey(name = "category_ibfk_1"))
-//    private Category CategoryObject;
+    private String Description;
 }
