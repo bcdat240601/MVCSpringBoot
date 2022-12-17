@@ -27,8 +27,11 @@ public class UserController {
     
     
     @GetMapping("/login")
-    public String ShowLogin()
+    public String ShowLogin(HttpSession session)
     {                
+        if (session.getAttribute("username") != null) {
+            return "redirect:/home";
+        }                
         return "login";        
     }
     
