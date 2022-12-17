@@ -32,13 +32,12 @@ public class VegetableController {
 //        //return "home";
 //        
 //    }
-    @GetMapping("/all")
+    @GetMapping("/home")
     public String getAll(Model m)
     {
         Iterable<Vegetable> list = vegtableRepository.findAll();
         m.addAttribute("data", list);
-        return "index";
-        
+        return "index";        
     }
     
 }
