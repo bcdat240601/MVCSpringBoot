@@ -14,8 +14,14 @@ import org.springframework.stereotype.Repository;
  * @author ad
  */
 @Repository
-public interface VegetableRepository extends CrudRepository<Vegetable, Integer>{
-    @Query(value = "select * from vegetable where CatagoryID = ?1", nativeQuery = true)
+public interface VegetableRepository extends CrudRepository<Vegetable, Integer> {
+
+    @Query(value = "select * from vegetable v, category c where c.CatagoryID = v.CatagoryID", nativeQuery = true)
+    Iterable<Vegetable> getVegetables();
+
+    @Query(value = "select * from vegetable v, category c where v.CatagoryID = ?1 and c.CatagoryID = v.CatagoryID", nativeQuery = true)
     Iterable<Vegetable> getVegetablesByCategory(String id);
-    
+
+    @Query(value = "select * from vegetable v, category c where  c.CatagoryID = v.CatagoryID and VegetableID = ?1", nativeQuery = true)
+    Vegetable getVegetableByID(String id);
 }

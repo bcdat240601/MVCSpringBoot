@@ -40,7 +40,7 @@ public class VegetableController {
 
     @GetMapping("/shop")
     public String getAll(Model m) {
-        Iterable<Vegetable> list = vegtableRepository.findAll();
+        Iterable<Vegetable> list = vegtableRepository.getVegetables();
         Iterable<Category> listCate = categoryRepository.findAll();
         System.out.println(list);
         System.out.println(listCate);
@@ -60,6 +60,19 @@ public class VegetableController {
         m.addAttribute("dataCategory", listCate);
         m.addAttribute("data", list);
         return "shop";
+    }
+
+    @GetMapping("/shop/product")
+//    @ResponseBody
+    public String getVegetableByID(Model m, @RequestParam(required = false) String idProduct) {
+//        int idCate = Integer.parseInt(id);
+        Vegetable veg = vegtableRepository.getVegetableByID(idProduct);
+
+        System.out.println("Founded: ");
+        System.out.println(veg);
+        m.addAttribute("dataVegetable", veg);
+
+        return "product";
     }
 
 }
