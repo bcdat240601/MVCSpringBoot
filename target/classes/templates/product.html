@@ -105,15 +105,7 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
+ 
         </section>
         <!-- Product Shop Section End  -->
 
@@ -167,7 +159,8 @@
                 let vegetable = {
                     id: `[[${dataVegetable.VegetableID}]]`,
                     productName: `[[${dataVegetable.vegetable_name}]]`,
-                    quantity: parseInt(document.querySelector("#quan").value)
+                    quantity: parseInt(document.querySelector("#quan").value),
+                    price: `[[${dataVegetable.Price}]]`
                 };
                 if (arrayCart !== null) {
                     arrayCart.map((cart) => {

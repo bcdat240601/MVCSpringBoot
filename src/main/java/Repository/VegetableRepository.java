@@ -25,7 +25,7 @@ public interface VegetableRepository extends CrudRepository<Vegetable, Integer> 
 
     @Query(value = "select * from vegetable v, category c where  c.CatagoryID = v.CatagoryID and VegetableID = ?1", nativeQuery = true)
     Vegetable getVegetableByID(String id);
-    
+
     @Query(value = "select * from vegetable v, category c where  c.CatagoryID = v.CatagoryID and v.vegetable_name LIKE %?1%", nativeQuery = true)
     Iterable<Vegetable> getVegetableByNameforSearching(String name);
 }
