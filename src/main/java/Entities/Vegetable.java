@@ -30,9 +30,6 @@ public class Vegetable {
     private Integer VegetableID;
     @Column
     private Integer CatagoryID;
-
-    @Column
-    private String vegetable_name;
     @Column
     private String Unit;
     @Column
@@ -41,6 +38,8 @@ public class Vegetable {
     private String Image;
     @Column
     private Float Price;
+    @Column
+    private String vegetable_name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CatagoryID", nullable = true, insertable = false, updatable = false, foreignKey = @ForeignKey(name = "category_ibfk_1"))
     private Category CategoryObject;

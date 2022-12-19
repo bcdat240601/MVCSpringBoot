@@ -64,8 +64,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <div class="advanced-search">
                                         <button type="button" class="category-btn">All Categories</button>
                                         <div class="input-group">
-                                            <input type="text" placeholder="What do you need?">
+                                            <input type="text" class="searcharea" placeholder="What do you need?">
                                             <button type="button"> <i class="ti-search"></i> </button>
+                                            <div class="hintarea"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,8 +152,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </div>
                             <nav class="nav-menu mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li class="active"><a href="/home">Home</a></li>
+                                    <li><a href="/shop">Shop</a></li>
                                     <li><a href="">Collection</a>
                                         <ul class="dropdown">
                                             <li><a href="">Men's</a></li>
@@ -260,6 +261,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </footer>
 
     <!-- {{-- Footer Section End --}} -->
+        </div>
+        <div th:fragment="scripts">
+            <script>                
+                $(".searcharea").keyup(function(){
+                    var valueInput = $(this).val();
+                    if(valueInput == "") {
+                        $(".hintarea").html(null);
+                        return;
+                    }
+                    $.get("/hint",{valueInput:valueInput},function(data){
+                        if (data != null) {                    
+                            $(".hintarea").fadeIn(data);
+                            $(".hintarea").html(data);
+                        }
+                    });
+                });
+            </script>
         </div>
     </body>
 </html>
