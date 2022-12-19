@@ -11,10 +11,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <div th:fragment="header">
-            <div id="preloder">
-                <div class="loader">
-            </div>
-            </div>
+           
 
                 <!-- Header Section Begin -->
                 <header class="header-section">
@@ -66,10 +63,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <div class="col-lg-7 col-md-7">
                                     <div class="advanced-search">
                                         <button type="button" class="category-btn">All Categories</button>
-                                        <div class="input-group">
-                                            <input type="text" placeholder="What do you need?">
-                                            <button type="button"> <i class="ti-search"></i> </button>
-                                        </div>
+                                        <form action="/shop/search" method="get">
+                                            <div class="input-group">
+                                                <input type="text" name="valueInput" class="searcharea" placeholder="What do you need?">
+                                                <button type="submit" class="searchbtn"> <i class="ti-search"></i> </button>
+                                                <div class="hintarea"></div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 text-right">
@@ -154,8 +154,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </div>
                             <nav class="nav-menu mobile-menu">
                                 <ul>
-                                    <li class="active"><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li class="active"><a href="/home">Home</a></li>
+                                    <li><a href="/shop">Shop</a></li>
                                     <li><a href="">Collection</a>
                                         <ul class="dropdown">
                                             <li><a href="">Men's</a></li>
@@ -263,6 +263,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </footer>
 
     <!-- {{-- Footer Section End --}} -->
+        </div>
+        <div th:fragment="scripts">
+            <script src="/js/jquery-3.3.1.min.js"></script>
+            <script src="/js/bootstrap.min.js"></script>
+            <script src="/js/jquery-ui.min.js"></script>
+            <script src="/js/jquery.countdown.min.js"></script>
+            <script src="/js/jquery.nice-select.min.js"></script>
+            <script src="/js/jquery.zoom.min.js"></script>
+            <script src="/js/jquery.dd.min.js"></script>
+            <script src="/js/jquery.slicknav.js"></script>
+            <script src="/js/owl.carousel.min.js"></script>
+            <script src="/js/main.js"></script> 
+            <script>                
+                $(".searcharea").keyup(function(){
+                    var valueInput = $(this).val();
+                    if(valueInput == "") {
+                        $(".hintarea").html(null);
+                        return;
+                    }
+                    $.get("/hint",{valueInput:valueInput},function(data){
+                        if (data != null) {                    
+                            $(".hintarea").fadeIn(data);
+                            $(".hintarea").html(data);
+                        }
+                    });
+                });
+            </script>
         </div>
     </body>
 </html>

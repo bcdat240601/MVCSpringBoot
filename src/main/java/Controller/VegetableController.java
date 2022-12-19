@@ -9,6 +9,7 @@ import Entities.Vegetable;
 import Repository.CategoryRepository;
 import Repository.VegetableRepository;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -40,7 +41,7 @@ public class VegetableController {
 
     @GetMapping("/shop")
     public String getAll(Model m) {
-        Iterable<Vegetable> list = vegtableRepository.findAll();
+        Iterable<Vegetable> list = vegtableRepository.getVegetables();
         Iterable<Category> listCate = categoryRepository.findAll();
         System.out.println(list);
         System.out.println(listCate);
@@ -57,6 +58,47 @@ public class VegetableController {
         Iterable<Category> listCate = categoryRepository.findAll();
         System.out.println("Founded: ");
         System.out.println(list);
+        m.addAttribute("dataCategory", listCate);
+        m.addAttribute("data", list);
+        return "shop";
+    }
+
+    @GetMapping("/shop/product")
+//    @ResponseBody
+    public String getVegetableByID(Model m, @RequestParam(required = false) String idProduct) {
+//        int idCate = Integer.parseInt(id);
+        Vegetable veg = vegtableRepository.getVegetableByID(idProduct);
+
+        System.out.println("Founded: ");
+        System.out.println(veg);
+        m.addAttribute("dataVegetable", veg);
+
+        return "product";
+    }
+    @GetMapping("/hint")
+    public @ResponseBody String ShowHint(Model model, HttpServletRequest request){
+        String name = request.getParameter("valueInput");
+        String output;        
+        Iterable<Vegetable> list = vegtableRepository.getVegetableByNameforSearching(name);
+        Integer countLiTag = 0;
+        if(list != null){
+            output = "<ul class='dropdown-menu' style='display:block;overflow-y: scroll;max-height: 245px'>";        
+            for(Vegetable vegetable : list) {
+                output += "<li><a href='" + "/shop/product?idProduct="+vegetable.getVegetableID()+ "'class='item'>"+ vegetable.getVegetable_name() + "</a></li>";
+                countLiTag++;
+            }            
+            output += "</ul>";
+            if (countLiTag > 0) {
+                return output;
+            }else
+                return null;
+        }
+        return null;
+    }
+    @GetMapping("/shop/search")
+    public String SearchProduct(Model m, String valueInput){
+        Iterable<Vegetable> list = vegtableRepository.getVegetableByNameforSearching(valueInput);
+        Iterable<Category> listCate = categoryRepository.findAll();
         m.addAttribute("dataCategory", listCate);
         m.addAttribute("data", list);
         return "shop";
