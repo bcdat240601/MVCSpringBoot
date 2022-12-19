@@ -9,6 +9,7 @@ import Entities.Vegetable;
 import Repository.CategoryRepository;
 import Repository.VegetableRepository;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -73,6 +74,34 @@ public class VegetableController {
         m.addAttribute("dataVegetable", veg);
 
         return "product";
+    }
+    @GetMapping("/hint")
+    public @ResponseBody String ShowHint(Model model, HttpServletRequest request){
+        String name = request.getParameter("valueInput");
+        String output;        
+        Iterable<Vegetable> list = vegtableRepository.getVegetableByNameforSearching(name);
+        Integer countLiTag = 0;
+        if(list != null){
+            output = "<ul class='dropdown-menu' style='display:block;overflow-y: scroll;max-height: 245px'>";        
+            for(Vegetable vegetable : list) {
+                output += "<li><a href='" + "/shop/product?idProduct="+vegetable.getVegetableID()+ "'class='item'>"+ vegetable.getVegetable_name() + "</a></li>";
+                countLiTag++;
+            }            
+            output += "</ul>";
+            if (countLiTag > 0) {
+                return output;
+            }else
+                return null;
+        }
+        return null;
+    }
+    @GetMapping("/shop/search")
+    public String SearchProduct(Model m, String valueInput){
+        Iterable<Vegetable> list = vegtableRepository.getVegetableByNameforSearching(valueInput);
+        Iterable<Category> listCate = categoryRepository.findAll();
+        m.addAttribute("dataCategory", listCate);
+        m.addAttribute("data", list);
+        return "shop";
     }
 
 }
