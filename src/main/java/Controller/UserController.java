@@ -41,6 +41,7 @@ public class UserController {
         if(customers != null) {
 //            redirAttr.addFlashAttribute("username", username); 
             session.setAttribute("username", customers.getFullname());
+            session.setAttribute("idUser", customers.getCustomerID());
             return "redirect:/home";
         }            
         return "login";
