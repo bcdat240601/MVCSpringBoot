@@ -213,9 +213,9 @@
             <div th:replace="/header-footer :: footer"></div>        
             <div th:replace="/header-footer :: scripts"></div>  
             <script>
-                const carts = JSON.parse(sessionStorage.getItem("cart"))
+                let carts = JSON.parse(sessionStorage.getItem("cart"));
+                let cartNoJSON = sessionStorage.getItem("cart");
                 let total = 0;
-                console.log(carts);
                 carts.map((cart) => {
                     total += cart.price * cart.quantity
                     $("#body").append(`<tr>
@@ -233,20 +233,23 @@
                 </td>
                 <td class="total-price first-row">${cart.price * cart.quantity} VNĐ</td>
                 <td class="close-td first-row"><i class="ti-close"></i></td>
-            </tr>`)
+            </tr>`);
                 })
                 $(".totalPrice").text(`${total} VNĐ`);
                 $(".proceed-btn").click(function () {
-                    
+
                     $.post("/checkout", {
                         "_token": "{{ csrf_token() }}",
+                        listCarts: cartNoJSON,
+
                         total: total
                     }, function (data) {
                         console.log("Data: " + data);
                         window.location.href = data;
                         sessionStorage.removeItem("cart");
-                        
+
                     })
+
                 });
             </script>
 
