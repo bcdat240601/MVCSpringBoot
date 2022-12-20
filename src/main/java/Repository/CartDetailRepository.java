@@ -4,7 +4,9 @@
  */
 package Repository;
 
+import Entities.Vegetable;
 import Entities.CartDetail;
+import java.util.ArrayList;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartDetailRepository extends CrudRepository<CartDetail, Integer>{
     
-    
+    @Query(value = "select * from orderdetail o group by o.VegetableID order by count(o.Quantity) desc", nativeQuery = true)
+    ArrayList<CartDetail> getVegetableByOrderDetail();
 }
