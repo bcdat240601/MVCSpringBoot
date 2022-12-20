@@ -125,7 +125,7 @@ public class VegetableController {
     public String getVegetableByOrderdetail(Model m, @RequestParam(required = false) String idProduct) {
         ArrayList<CartDetail> list = cartDetailRepository.getVegetableByOrderDetail();
         ArrayList<Vegetable> listvege = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size()-3; i++) {
             Vegetable veg = vegtableRepository.getVegetableByID(list.get(i).getVegetableID().toString());
             listvege.add(veg);
             m.addAttribute("data", veg);
