@@ -82,7 +82,7 @@ public class VegetableController {
         Iterable<Vegetable> list = vegtableRepository.getVegetableByNameforSearching(name);
         Integer countLiTag = 0;
         if(list != null){
-            output = "<ul class='dropdown-menu' style='display:block;overflow-y: scroll;max-height: 245px'>";        
+            output = "<ul class='dropdown-menu' style='display:block;overflow-y:scroll;max-height: 245px;right: 7% !important;'>";        
             for(Vegetable vegetable : list) {
                 output += "<li><a href='" + "/shop/product?idProduct="+vegetable.getVegetableID()+ "'class='item'>"+ vegetable.getVegetable_name() + "</a></li>";
                 countLiTag++;

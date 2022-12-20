@@ -83,12 +83,15 @@
                                 <div class="quantity">
                                     <div class="pro-qty">
                                         <input id="quan" th:type="number" th:value="1" th:min="1" th:max="${state.Amount}">
-                                        <span th:utext="${state.Unit}"></span>
-                                    </div>
 
-                                    <button th:onclick="testFunction()" class="primary-btn pd-cart">Add To Cart</button>
+                                    </div>
+                                    <span style="padding: 0.5rem" th:utext="${state.Unit}"></span>
+                                    <button th:if="${session.username}" th:onclick="testFunction()" class="primary-btn pd-cart">Add To Cart</button>
+
+
                                 </div>
                             </div>
+                            <div style="padding-bottom: 2rem" th:unless="${session.username}">Bạn cần đăng nhập để có thể thêm giỏ hàng</div>
                             <ul class="pd-tags">
                                 <span>CATEGORIES</span>
                                 <li th:utext="${state.CategoryObject.Name}"></li>
@@ -105,7 +108,7 @@
                         </div>
                     </div>
                 </div>
- 
+
         </section>
         <!-- Product Shop Section End  -->
 
