@@ -56,6 +56,7 @@ public class CartController {
     @GetMapping("/cart")
     public String ShowCart(HttpSession session) {
         if (session.getAttribute("username") == null) {
+           
             return "redirect:/home";
         }
         return "cart";
